@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo de FMA's</title>
+</head>
+<body>
+    <div id="form1">
+        <h3>Número de campos da estrutura do fungo</h3>
+        <label>Número de campos observados (NCO)</label>
+        <input type="text" name="NCO" id="NCO">
+        <label>Número de campos sem FMA (NSF)</label>
+        <input type="text" name="NSF" id="NSF">
+        <label>Número de vesículas</label>
+        <input type="text" name="vesiculas" id="vesiculas">
+        <label>Número de arbúsculos</label>
+        <input type="text" name="arbusculos" id="arbusculos">
+        <input onclick="calcular_percentuais()" type="submit" value="Calcular número de campos" id="btn-nc">
+        <input onclick="zerar_valores()" type="submit" value="Limpar campos" id="btn-nc">
+    </div>
+
+    <h3>Resultados</h3>
+    <div class="res">FMA (NCO - NSF): <span id="ncfma"></span></div>
+    <div class="res">% de CT: <span id="pct"></span></div>
+    <div class="res">% de CV: <span id="pcv"></span></div>
+    <div class="res">% de CA: <span id="pca"></span></div>
+    
+
+    <script defer>
+        var NCO = document.getElementById('NCO')
+        var NSF = document.getElementById('NSF')
+        var vesiculas = document.getElementById('vesiculas')
+        var arbusculos = document.getElementById('arbusculos')
+        var ncfma = document.getElementById('ncfma')
+        var pct = document.getElementById('pct')
+        var pcv = document.getElementById('pcv')
+        var pca = document.getElementById('pca')
+
+        function calcular_percentuais() {
+            var FMA = NCO.value - NSF.value
+            var Percentual_CT = FMA*100/NCO.value
+            var Percentual_CV = vesiculas.value*100/NCO.value
+            var Percentual_CA = arbusculos.value*100/NCO.value
+
+            ncfma.innerHTML = FMA
+            pct.innerHTML = Percentual_CT.toFixed(2) + '%'
+            pcv.innerHTML = Percentual_CV.toFixed(2) + '%'
+            pca.innerHTML = Percentual_CA.toFixed(2) + '%'
+        }
+
+        function zerar_valores() {
+            NCO.value = ""
+            NSF.value = ""
+            vesiculas.value = ""
+            arbusculos.value = ""
+            ncfma.innerHTML = ""
+            pct.innerHTML = ""
+            pcv.innerHTML = ""
+            pca.innerHTML = ""
+        }
+    </script>
+
+    <style defer>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        #form1 {
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            justify-content: center;
+            align-items: center;
+        }
+
+        input {
+            font-size: 7vw;
+        }
+
+        #btn-nc {
+            margin: 10px;
+            padding: 5px;
+        }
+
+        .res {
+            font-size: 8vw;
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            font-size: 8vw;
+        }
+
+        label {
+            padding-top: 5px;
+            font-size: 6vw;
+            text-align: center;
+        }
+    </style>
+</body>
+</html>
